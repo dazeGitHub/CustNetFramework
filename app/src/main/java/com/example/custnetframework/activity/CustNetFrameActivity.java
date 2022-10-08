@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,14 +21,14 @@ import java.util.concurrent.ExecutionException;
 
 public class CustNetFrameActivity extends AppCompatActivity {
 
-    private CatHttpClient client;
+    private CatHttpClient mCatHttpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cust_net_frame);
 
-        client = new CatHttpClient.Builder()
+        mCatHttpClient = new CatHttpClient.Builder()
                 .connTimeOut(10 * 1000)
                 .writeTimeOut(10 * 1000)
                 .build();
@@ -50,7 +49,6 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
 
@@ -64,7 +62,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 .url("https://www.baidu.com")
                 .build();
 
-        Response response = client.newCall(request).execute();
+        Response response = mCatHttpClient.newCall(request).execute();
 
         if (response.code() == 200) {
             Logger.e("syncGetClick Success response msg " + response.body().string());
@@ -84,7 +82,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 .url("https://www.baidu.com")
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mCatHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Response response) {
                 if (response.code() == 200) {
@@ -113,7 +111,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 .get()
                 .build();
 
-        Response response = client.newCall(request).execute();
+        Response response = mCatHttpClient.newCall(request).execute();
         if (response.code() == 200) {
             Logger.e(response.body().string());
         }
@@ -137,7 +135,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 .post(body)
                 .build();
 
-        Response response = client.newCall(request).execute();
+        Response response = mCatHttpClient.newCall(request).execute();
 
         if (response.code() == 200) {
             Logger.e("msg" + response.body().string());
@@ -182,7 +180,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 .post(body)
                 .build();
 
-        Response response = client.newCall(request).execute();
+        Response response = mCatHttpClient.newCall(request).execute();
 
         if (response != null && response.code() == 200) {
             Logger.e("msg== " + response.body().string());
@@ -196,7 +194,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 .url("https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF")
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mCatHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Response response) {
                 byte[] bytes = response.body().bytes();

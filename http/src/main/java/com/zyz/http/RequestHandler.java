@@ -56,8 +56,6 @@ public class RequestHandler implements IRequestHandler {
     }
 
     /**
-     * 用
-     *
      * @param connection
      * @param body
      * @throws IOException

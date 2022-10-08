@@ -26,7 +26,7 @@ public abstract class Part {
 
 
     /**
-     * 创建构建form的part
+     * 创建构建 form 的 part
      *
      * @param key
      * @param value

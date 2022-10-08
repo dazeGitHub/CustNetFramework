@@ -29,6 +29,4 @@ public class HttpTask implements Runnable {
             handler.handFail(callback, call.request, e);
         }
     }
-
-
 }
