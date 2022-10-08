@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TestOkHttpActivity">
+
+    <Button
+        android:id="@+id/btn_get_execute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发起 get 同步请求"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btn_get_enqueue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发起 get 异步请求"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_get_execute"
+        />
+
+    <Button
+        android:id="@+id/btn_post_execute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发起 put 同步请求"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_get_enqueue"
+        />
+
+    <Button
+        android:id="@+id/btn_post_enque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发起 put 异步请求"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_post_execute"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
