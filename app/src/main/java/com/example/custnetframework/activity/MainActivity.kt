@@ -14,5 +14,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.btn_go_okhttp_test).setOnClickListener{
             this.startActivity(Intent(this, TestOkHttpActivity::class.java))
         }
+
+        findViewById<View>(R.id.btn_go_cust_net_frame).setOnClickListener {
+            this.startActivity(Intent(this, CustNetFrameActivity::class.java))
+        }
     }
 }

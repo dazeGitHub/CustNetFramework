@@ -19,6 +19,9 @@
             android:name=".activity.TestOkHttpActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.CustNetFrameActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
