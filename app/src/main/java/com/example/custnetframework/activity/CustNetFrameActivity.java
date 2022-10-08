@@ -59,17 +59,16 @@ public class CustNetFrameActivity extends AppCompatActivity {
      *
      * @param view
      */
-    public void syncClick(View view) {
+    public void syncGetClick(View view) {
         Request request = new Request.Builder()
-                .url("http://192.168.31.34:8080/API/upkeep")
+                .url("https://www.baidu.com")
                 .build();
 
         Response response = client.newCall(request).execute();
 
         if (response.code() == 200) {
-            Logger.e("response msg " + response.body().string());
+            Logger.e("syncGetClick Success response msg " + response.body().string());
         }
-
     }
 
     /**
@@ -79,10 +78,10 @@ public class CustNetFrameActivity extends AppCompatActivity {
      *
      * @param view
      */
-    public void asyncClick(View view) {
+    public void asyncGetClick(View view) {
 
         Request request = new Request.Builder()
-                .url("http://192.168.31.34:8080/API/upkeep")
+                .url("https://www.baidu.com")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -91,7 +90,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     // 执行在主线程中，建议不要直接持有activity引用，利用weak+static
                     String msg = response.body().string();
-                    Logger.e("response msg = " + msg);
+                    Logger.e("asyncGetClick onResponse msg = " + msg);
                 }
             }
 
@@ -110,7 +109,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
      */
     public void getClick(View view) {
         Request request = new Request.Builder()
-                .url("http://192.168.31.34:8080/API/upkeep?username=qq&pwd=123")
+                .url("https://www.baidu.com")
                 .get()
                 .build();
 
@@ -134,7 +133,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://192.168.31.34:8080/API/upkeep")
+                .url("https://www.baidu.com")
                 .post(body)
                 .build();
 
@@ -188,14 +187,13 @@ public class CustNetFrameActivity extends AppCompatActivity {
         if (response != null && response.code() == 200) {
             Logger.e("msg== " + response.body().string());
         }
-
     }
 
     public void downloadFile(View view) {
         final ImageView iv = findViewById(R.id.iv_content);
 
         Request request = new Request.Builder()
-                .url("http://static.zertone1.com//upload/image/2017_11_21/50e69d50ebcdd800db3fdef0ec9e4b5ea20b6185.jpg")
+                .url("https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -208,7 +206,7 @@ public class CustNetFrameActivity extends AppCompatActivity {
 
             @Override
             public void onFail(Request request, IOException e) {
-                Log.e("ph", "onFail: " + e.getMessage());
+                Logger.e("downloadFile onFail errMsg = " + e.getMessage());
             }
         });
 

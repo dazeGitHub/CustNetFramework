@@ -9,24 +9,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="32dp"
-        android:minHeight="32dp"
-        android:onClick="syncClick"
+        android:textAlignment="center"
+        android:onClick="syncGetClick"
         android:text="同步" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="32dp"
-        android:minHeight="48dp"
-        android:onClick="asyncClick"
+        android:onClick="asyncGetClick"
         android:text="异步" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="32dp"
-        android:minHeight="48dp"
         android:onClick="getClick"
         android:text="Get" />
 
@@ -34,24 +29,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="32dp"
-        android:minHeight="48dp"
         android:onClick="postClick"
         android:text="Post" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="32dp"
-        android:minHeight="48dp"
         android:onClick="multipartClick"
         android:text="文件上传" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="32dp"
-        android:minHeight="48dp"
         android:onClick="downloadFile"
         android:text="下载文件" />
 
