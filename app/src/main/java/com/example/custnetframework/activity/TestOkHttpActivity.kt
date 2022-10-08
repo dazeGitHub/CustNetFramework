@@ -8,35 +8,43 @@ import com.example.custnetframework.R
 import com.example.custnetframework.data.Config
 import okhttp3.*
 import java.io.IOException
+import java.util.concurrent.BlockingQueue
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
+import java.util.concurrent.LinkedBlockingQueue
 
 
 class TestOkHttpActivity : AppCompatActivity() {
 
     private var TAG = "TAG"
-    
+
     val okHttpClient = OkHttpClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_ok_http)
 
-        findViewById<View>(R.id.btn_get_execute).setOnClickListener{
-            Thread{
+        Log.e(TAG, "初始时 当前线程 CurrentThread name = " + Thread.currentThread().name)
+
+        findViewById<View>(R.id.btn_get_execute).setOnClickListener {
+            //同步请求必须新启动一个线程来执行
+            Thread {
                 doGetExecute()
             }.start()
         }
 
-        findViewById<View>(R.id.btn_get_enqueue).setOnClickListener{
+        findViewById<View>(R.id.btn_get_enqueue).setOnClickListener {
             doGetEnqueue()
         }
 
-        findViewById<View>(R.id.btn_post_execute).setOnClickListener{
-            Thread{
+        findViewById<View>(R.id.btn_post_execute).setOnClickListener {
+            //同步请求必须新启动一个线程来执行
+            Thread {
                 doPostFormExecute()
             }.start()
         }
 
-        findViewById<View>(R.id.btn_post_enque).setOnClickListener{
+        findViewById<View>(R.id.btn_post_enque).setOnClickListener {
             doPostFormEnqueue()
         }
     }
@@ -58,7 +66,12 @@ class TestOkHttpActivity : AppCompatActivity() {
                 //这里需要注意，response.body().string()是获取返回的结果，此句话只能调用一次，再次调用获得不到结果。
                 //所以先将结果使用result变量接收
                 val result = response.body?.string()
-                Log.d(TAG, "doGetExecute onResponse result = $result")
+                Log.d(
+                    TAG, "doGetExecute onResponse " + "\n"
+                            + " CurrentThread name = " + Thread.currentThread().name
+                            + " result = \n"
+                            + result
+                )
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -70,7 +83,7 @@ class TestOkHttpActivity : AppCompatActivity() {
     }
 
     //Get 异步请求
-    private fun doGetEnqueue(){
+    private fun doGetEnqueue() {
         val request: Request = Request.Builder() //利用建造者模式创建Request对象
             .url(Config.URL) //设置请求的URL
             .build() //生成Request对象
@@ -81,20 +94,31 @@ class TestOkHttpActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 //请求成功的回调方法
                 val result = response.body?.string()
-                Log.d(TAG, "doGetEnqueue onResponse result = $result")
+
+                Log.d(
+                    TAG, "doGetEnqueue onResponse " + "\n"
+                            + " CurrentThread name = " + Thread.currentThread().name
+                            + " result = \n"
+                            + result
+                )
                 //关闭body
                 response.body?.close()
             }
 
             override fun onFailure(call: Call, e: java.io.IOException) {
                 //请求失败的回调方法
-                Log.d(TAG, "doGetEnqueue onFailure exception = " + e.message)
+                Log.d(
+                    TAG, "doGetEnqueue onFailure " + "\n"
+                            + " CurrentThread name = " + Thread.currentThread().name
+                            + " exception = \n"
+                            + e.message
+                )
             }
         })
     }
 
     //Post 同步请求, 使用表单
-    private fun doPostFormExecute(){
+    private fun doPostFormExecute() {
         val formBody: RequestBody = FormBody.Builder()
             .add("username", "test")
             .add("password", "test")
@@ -109,10 +133,16 @@ class TestOkHttpActivity : AppCompatActivity() {
         val response = call.execute()
         val code = response.code
         val result = response.body?.string()
-        Log.d(TAG, "doPostFormExecute Result code = $code result = $result")
+        Log.d(
+            TAG, "doPostFormExecute Result " + "\n"
+                    + " CurrentThread name = " + Thread.currentThread().name
+                    + " code = $code"
+                    + " result = \n"
+                    + result
+        )
     }
 
-    private fun doPostFormEnqueue(){
+    private fun doPostFormEnqueue() {
         val formBody: RequestBody = FormBody.Builder()
             .add("username", "test")
             .add("password", "test")
@@ -128,14 +158,24 @@ class TestOkHttpActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 //请求成功的回调方法
                 val result = response.body!!.string()
-                Log.d(TAG, "doPostFormEnqueue onResponse result = $result")
+                Log.d(
+                    TAG, "doPostFormEnqueue onResponse" + "\n"
+                            + " CurrentThread name = " + Thread.currentThread().name
+                            + " result = \n"
+                            + result
+                )
                 //关闭 body
                 response.body?.close()
             }
 
             override fun onFailure(call: Call, e: IOException) {
                 //请求失败的回调方法
-                Log.d(TAG, "doPostFormEnqueue onFailure exception = " + e.message)
+                Log.d(
+                    TAG, "doPostFormEnqueue onFailure " + "\n"
+                            + " CurrentThread name = " + Thread.currentThread().name
+                            + " exception = \n"
+                            + e.message
+                )
             }
         })
     }
